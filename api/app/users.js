@@ -1,10 +1,42 @@
 const express = require('express');
 const {nanoid} = require('nanoid');
+const path = require("path");
 const axios = require("axios");
+const multer = require("multer");
 const config = require("../config");
 const User = require('../models/User');
 
 const router = express.Router();
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, config.uploadPath);
+    },
+    filename: (req, file, cb) => {
+        cb(null, nanoid() + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({storage});
+
+router.post('/', upload.single('avatarImage'), async (req, res) => {
+    try {
+        const { password, email, displayName } = req.body;
+
+        const avatarImage = req.file ? 'uploads/' + req.file.filename : null;
+
+        const userData = {password, avatarImage, email, displayName};
+
+        const user = new User(userData);
+
+        user.generateToken();
+        await user.save();
+
+        res.send(user);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
 
 router.post('/sessions', async (req, res) => {
     const { email, password } = req.body;
@@ -12,13 +44,13 @@ router.post('/sessions', async (req, res) => {
     const user = await User.findOne({email});
 
     if (!user) {
-        return res.status(401).send({error: 'Wrong email or password!'});
+        return res.status(401).send({message: 'Wrong email or password!'});
     }
 
     const isMatch = await user.checkPassword(password);
 
     if (!isMatch) {
-        return res.status(401).send({error: 'Wrong username or password!'});
+        return res.status(401).send({message: 'Wrong username or password!'});
     }
 
     user.generateToken();

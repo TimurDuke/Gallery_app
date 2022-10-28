@@ -3,8 +3,11 @@ import thunk from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
 import {loadFromLocalStorage, saveToLocalStorage} from "./localStorage";
 import axiosApi from "../axiosApi";
+import usersSlice from "./slices/usersSlice";
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+    users: usersSlice.reducer,
+});
 
 const persistedState = loadFromLocalStorage();
 

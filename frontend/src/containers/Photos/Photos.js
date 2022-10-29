@@ -5,6 +5,7 @@ import PhotoComponent from "../../components/PhotoComponent/PhotoComponent";
 import ModalComponent from "../../components/UI/ModalComponent/ModalComponent";
 import {Box} from "@mui/material";
 import {makeStyles} from "tss-react/mui";
+import Preloader from "../../components/UI/Preloader/Preloader";
 
 const useStyles = makeStyles()(() => ({
     photos: {
@@ -47,6 +48,9 @@ const Photos = () => {
 
     return (
         <>
+            <Preloader
+                showPreloader={loading}
+            />
             <ModalComponent
                 modalOpen={modalOpen}
                 handleClose={handleModalClose}

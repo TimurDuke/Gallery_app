@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import FormElement from "../UI/Form/FormElement/FormElement";
 import FileInput from "../UI/Form/FileInput/FileInput";
 import {addPhoto} from "../../store/actions/photosActions";
+import Preloader from "../UI/Preloader/Preloader";
 
 const AddPhotoForm = () => {
     const dispatch = useDispatch();
@@ -50,46 +51,51 @@ const AddPhotoForm = () => {
     };
 
     return (
-        <Container maxWidth='md'>
-            <Typography component="h1" variant="h5" textAlign='center' marginBottom='30px'>
-                Add new photo
-            </Typography>
+        <>
+            <Preloader
+                showPreloader={loading}
+            />
+            <Container maxWidth='md'>
+                <Typography component="h1" variant="h5" textAlign='center' marginBottom='30px'>
+                    Add new photo
+                </Typography>
 
-            <Grid
-                component="form"
-                onSubmit={submitFormHandler}
-                container
-                spacing={3}
-            >
-                <FormElement
-                    name='title'
-                    label='Title'
-                    required={true}
-                    onChange={inputChangeHandler}
-                    value={photoData.title}
-                    error={getFieldError('title')}
-                />
-
-                <Grid item xs={12}>
-                    <FileInput
-                        label="Image"
-                        name="image"
-                        onChange={fileChangeHandler}
+                <Grid
+                    component="form"
+                    onSubmit={submitFormHandler}
+                    container
+                    spacing={3}
+                >
+                    <FormElement
+                        name='title'
+                        label='Title'
                         required={true}
-                        error={getFieldError('image')}
+                        onChange={inputChangeHandler}
+                        value={photoData.title}
+                        error={getFieldError('title')}
                     />
-                </Grid>
 
-                <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                    <Button
-                        variant='contained'
-                        type='submit'
-                    >
-                        Create photo
-                    </Button>
+                    <Grid item xs={12}>
+                        <FileInput
+                            label="Image"
+                            name="image"
+                            onChange={fileChangeHandler}
+                            required={true}
+                            error={getFieldError('image')}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
+                        <Button
+                            variant='contained'
+                            type='submit'
+                        >
+                            Create photo
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Container>
+            </Container>
+        </>
     );
 };
 

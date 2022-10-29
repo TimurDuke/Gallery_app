@@ -3,12 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {deletePhoto, getModerationPhotos, publishPhoto} from "../../store/actions/photosActions";
 import {Box} from "@mui/material";
 import ModerationPhotoComponent from "../../components/ModerationPhotoComponent/ModerationPhotoComponent";
+import Preloader from "../../components/UI/Preloader/Preloader";
 
 const ModerationPage = () => {
     const dispatch = useDispatch();
 
     const moderationPhotos = useSelector(state => state.photos.moderationPhotos);
-    const loading = useSelector(state => state.photos.moderationPhotosLoading);
+    const photosLoading = useSelector(state => state.photos.moderationPhotosLoading);
+    const publishLoading = useSelector(state => state.photos.publishPhotoLoading);
 
     useEffect(() => {
         dispatch(getModerationPhotos());
@@ -24,6 +26,9 @@ const ModerationPage = () => {
 
     return (
         <>
+            <Preloader
+                showPreloader={photosLoading || publishLoading}
+            />
             <Box sx={{display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
                 {!!moderationPhotos.length ? moderationPhotos.map(photo => (
                     <ModerationPhotoComponent

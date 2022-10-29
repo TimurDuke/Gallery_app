@@ -8,6 +8,8 @@ const initialState = {
     moderationPhotos: [],
     getPhotosLoading: false,
     getPhotosError: null,
+    personalPhotosLoading: false,
+    personalPhotosError: null,
     addPhotoLoading: false,
     addPhotoError: null,
     deletePhotoLoading: false,
@@ -45,15 +47,15 @@ const usersSlice = createSlice({
             state.moderationPhotosError = error;
         },
         getPersonalPhotosRequest(state) {
-            state.getPhotosLoading = true;
+            state.personalPhotosLoading = true;
         },
         getPersonalPhotosSuccess(state, {payload: photos}) {
-            state.getPhotosLoading = false;
+            state.personalPhotosLoading = false;
             state.personalPhotos = photos;
         },
         getPersonalPhotosFailure(state, {payload: error}) {
-            state.getPhotosLoading = false;
-            state.getPhotosError = error;
+            state.personalPhotosLoading = false;
+            state.personalPhotosError = error;
         },
         addPhotoRequest(state) {
             state.addPhotoLoading = true;

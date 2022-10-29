@@ -4,11 +4,13 @@ import {deletePhoto, getPersonalPhotos} from "../../store/actions/photosActions"
 import {Box, Button, Typography} from "@mui/material";
 import PersonalPhoto from "../../components/PersonalPhoto/PersonalPhoto";
 import {Link} from "react-router-dom";
+import Preloader from "../../components/UI/Preloader/Preloader";
 
 const PersonalPhotos = ({match}) => {
     const dispatch = useDispatch();
 
     const personalPhotos = useSelector(state => state.photos.personalPhotos);
+    const loading = useSelector(state => state.photos.personalPhotosLoading);
     const user = useSelector(state => state.users.user);
 
     useEffect(() => {
@@ -21,6 +23,9 @@ const PersonalPhotos = ({match}) => {
 
     return (
         <>
+            <Preloader
+                showPreloader={loading}
+            />
             <Box sx={{
                     display: 'flex',
                     alignItems: 'center',

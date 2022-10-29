@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deletePhoto, getModerationPhotos, publishPhoto} from "../../store/actions/photosActions";
 import {Box} from "@mui/material";
+import {deletePhoto, getModerationPhotos, publishPhoto} from "../../store/actions/photosActions";
 import ModerationPhotoComponent from "../../components/ModerationPhotoComponent/ModerationPhotoComponent";
 import Preloader from "../../components/UI/Preloader/Preloader";
 

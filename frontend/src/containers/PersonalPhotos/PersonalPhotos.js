@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deletePhoto, getPersonalPhotos, shareLink} from "../../store/actions/photosActions";
 import {Box, Button, Typography} from "@mui/material";
-import PersonalPhoto from "../../components/PersonalPhoto/PersonalPhoto";
 import {Link} from "react-router-dom";
+import PersonalPhoto from "../../components/PersonalPhoto/PersonalPhoto";
 import Preloader from "../../components/UI/Preloader/Preloader";
 import ModalComponent from "../../components/UI/ModalComponent/ModalComponent";
 

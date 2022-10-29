@@ -25,7 +25,7 @@ const ImageLinkPage = () => {
         if (token) {
             dispatch(getPhotoByLink(token));
         }
-    }, [token]);
+    }, [token, dispatch]);
 
     return !!photo.length && (
         <Box sx={{display: 'flex', justifyContent: 'center'}}>

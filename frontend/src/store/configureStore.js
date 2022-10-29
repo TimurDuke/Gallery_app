@@ -4,9 +4,11 @@ import {configureStore} from "@reduxjs/toolkit";
 import {loadFromLocalStorage, saveToLocalStorage} from "./localStorage";
 import axiosApi from "../axiosApi";
 import usersSlice from "./slices/usersSlice";
+import photosSlice from "./slices/photosSlice";
 
 const rootReducer = combineReducers({
     users: usersSlice.reducer,
+    photos: photosSlice.reducer,
 });
 
 const persistedState = loadFromLocalStorage();

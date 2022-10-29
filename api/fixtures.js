@@ -37,17 +37,17 @@ const run = async () => {
     await Photo.create({
         author: admin['_id'],
         title: "Admin photo",
-        image: "fixtures/adminPhoto",
+        image: "fixtures/adminPhoto.jpg",
         published: true,
     }, {
         author: user['_id'],
         title: "User photo",
-        image: "fixtures/userPhoto",
+        image: "fixtures/userPhoto.jpg",
         published: true,
     }, {
         author: jhon['_id'],
         title: "Jhon photo",
-        image: "fixtures/jhonPhoto",
+        image: "fixtures/jhonPhoto.jpg",
         published: true,
     });
 

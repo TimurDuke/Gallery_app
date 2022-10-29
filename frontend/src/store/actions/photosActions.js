@@ -8,6 +8,10 @@ const {
     getPhotosSuccess,
     getPhotosFailure,
 
+    getPhotosModerationRequest,
+    getPhotosModerationSucess,
+    getPhotosModerationFailure,
+
     getPersonalPhotosRequest,
     getPersonalPhotosSuccess,
     getPersonalPhotosFailure,
@@ -18,7 +22,7 @@ const {
 
     deletePhotoRequest,
     deletePhotoSuccess,
-    deletePhotoFailure
+    deletePhotoFailure,
 } = photosSlice.actions;
 
 export const getPhotos = () => {
@@ -49,6 +53,22 @@ export const getPersonalPhotos = authorId => {
             }
         } catch (e) {
             dispatch(getPersonalPhotosFailure(e));
+        }
+    };
+};
+
+export const getModerationPhotos = () => {
+    return async dispatch => {
+        try {
+            dispatch(getPhotosModerationRequest());
+
+            const response = await axiosApi('/admin/moderation');
+
+            if (response.data) {
+                dispatch(getPhotosModerationSucess(response.data));
+            }
+        } catch (e) {
+            dispatch(getPhotosModerationFailure(e));
         }
     };
 };

@@ -8,6 +8,7 @@ import Register from "./containers/Register/Register";
 import Login from "./containers/Login/Login";
 import PersonalPhotos from "./containers/PersonalPhotos/PersonalPhotos";
 import PhotoForm from "./containers/PhotoForm/PhotoForm";
+import ModerationPage from "./containers/ModerationPage/ModerationPage";
 
 const App = () => {
     const user = useSelector(state => state.users.user);
@@ -38,6 +39,13 @@ const App = () => {
                     redirectTo='/'
                     path='/addPhoto'
                     component={PhotoForm}
+                />
+
+                <ProtectedRoute
+                    isAllowed={user?.role === 'admin'}
+                    redirectTo='/'
+                    path='/moderation'
+                    component={ModerationPage}
                 />
 
                 <Route render={() => <h1 style={{textAlign: 'center'}}>Not found!</h1>}/>

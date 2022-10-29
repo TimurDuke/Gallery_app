@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {apiUrl} from "../../config";
 
 const PersonalPhoto = ({user, authorId, image, title, author, deleteHandler, published}) => (
-    <Card sx={{width: '31%', marginRight: '20px'}}>
+    <Card sx={{width: '31%', margin: '0 20px 20px 0'}}>
         <CardMedia
             image={apiUrl + '/' + image}
             sx={{

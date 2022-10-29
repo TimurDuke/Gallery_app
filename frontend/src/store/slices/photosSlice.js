@@ -1,16 +1,19 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const name = 'user';
+const name = 'photos';
 
 const initialState = {
     photos: [],
     personalPhotos: [],
+    moderationPhotos: [],
     getPhotosLoading: false,
     getPhotosError: null,
     addPhotoLoading: false,
     addPhotoError: null,
     deletePhotoLoading: false,
     deletePhotoFailure: null,
+    moderationPhotosLoading: false,
+    moderationPhotosError: null,
 };
 
 const usersSlice = createSlice({
@@ -27,6 +30,17 @@ const usersSlice = createSlice({
         getPhotosFailure(state, {payload: error}) {
             state.getPhotosLoading = false;
             state.getPhotosError = error;
+        },
+        getPhotosModerationRequest(state) {
+            state.moderationPhotosLoading = true;
+        },
+        getPhotosModerationSucess(state, {payload: photos}) {
+            state.moderationPhotos = photos;
+            state.moderationPhotosLoading = false;
+        },
+        getPhotosModerationFailure(state, {payload: error}) {
+            state.moderationPhotosLoading = false;
+            state.moderationPhotosError = error;
         },
         getPersonalPhotosRequest(state) {
             state.getPhotosLoading = true;

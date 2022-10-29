@@ -29,6 +29,18 @@ const UserMenu = ({user}) => {
                 >
                     Hello, {user.displayName}!
                 </Button>
+                {user.role === 'admin'
+                    ? <Button
+                        variant='outlined'
+                        color='inherit'
+                        size='small'
+                        sx={{marginRight: '10px'}}
+                        component={Link}
+                        to='/moderation'
+                    >
+                        Moderation
+                    </Button>
+                    : null}
                 <Button
                     variant='outlined'
                     color='inherit'

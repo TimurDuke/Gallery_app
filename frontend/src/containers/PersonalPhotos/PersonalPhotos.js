@@ -21,7 +21,13 @@ const PersonalPhotos = ({match}) => {
 
     return (
         <>
-            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', marginBottom: '20px'}}>
+            <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    marginBottom: '20px'
+                }}
+            >
                 {!!personalPhotos.length
                     ? <Typography variant='h5'>
                         {personalPhotos[0].author.displayName}'s gallery
@@ -38,7 +44,13 @@ const PersonalPhotos = ({match}) => {
                     </Button>
                     : null}
             </Box>
-            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexWrap: 'wrap'
+                }}
+            >
                 {!!personalPhotos.length ? personalPhotos.map(photo => (
                     <PersonalPhoto
                         key={photo['_id']}

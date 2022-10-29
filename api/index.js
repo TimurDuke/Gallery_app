@@ -8,6 +8,7 @@ const config = require('./config');
 
 const users = require('./app/users');
 const photos = require('./app/photos');
+const admin = require('./app/admin');
 
 const app = express();
 const PORT = 8000;
@@ -21,6 +22,7 @@ const run = async () => {
 
     app.use('/users', users);
     app.use('/photos', photos);
+    app.use('/admin', admin);
 
     app.listen(PORT, () => {
         console.log(`Server started on ${PORT} port!`);

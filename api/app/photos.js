@@ -33,8 +33,8 @@ router.get("/", personalPhotosAuth, async (req, res) => {
         const photos = await Photo.find(query).populate('author', 'displayName');
 
         res.send(photos);
-    } catch (e) {
-        res.status(500).send(e);
+    } catch {
+        res.sendStatus(500);
     }
 });
 

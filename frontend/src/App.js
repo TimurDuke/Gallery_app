@@ -6,6 +6,7 @@ import Layout from "./components/UI/Layout/Layout";
 import Photos from "./containers/Photos/Photos";
 import Register from "./containers/Register/Register";
 import Login from "./containers/Login/Login";
+import PersonalPhotos from "./containers/PersonalPhotos/PersonalPhotos";
 
 const App = () => {
     const user = useSelector(state => state.users.user);
@@ -28,6 +29,8 @@ const App = () => {
                     path='/login'
                     component={Login}
                 />
+
+                <Route path='/users/:id' component={PersonalPhotos}/>
 
                 <Route render={() => <h1 style={{textAlign: 'center'}}>Not found!</h1>}/>
             </Switch>

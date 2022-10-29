@@ -1,25 +1,12 @@
-import {useState} from "react";
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import {Grid, MenuItem} from "@mui/material";
+import {Grid} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {logoutUser} from "../../../../store/actions/usersActions";
+import {Link} from "react-router-dom";
 
 const UserMenu = ({user}) => {
     const dispatch = useDispatch();
-
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     return (
         <div>
@@ -34,27 +21,23 @@ const UserMenu = ({user}) => {
                 <Button
                     id="basic-button"
                     color="inherit"
-                    aria-controls={open ? 'basic-menu' : undefined}
                     aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
                     size='large'
                     sx={{textTransform: 'capitalize'}}
+                    component={Link}
+                    to={'/users/' + user['_id']}
                 >
                     Hello, {user.displayName}!
                 </Button>
+                <Button
+                    variant='outlined'
+                    color='inherit'
+                    size='small'
+                    onClick={() => dispatch(logoutUser())}
+                >
+                    Logout
+                </Button>
             </Grid>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>
-            </Menu>
         </div>
     );
 };

@@ -4,6 +4,7 @@ const name = 'user';
 
 const initialState = {
     photos: [],
+    personalPhotos: [],
     getPhotosLoading: false,
     getPhotosError: null,
 };
@@ -23,6 +24,18 @@ const usersSlice = createSlice({
             state.getPhotosLoading = false;
             state.getPhotosError = error;
         },
+        getPersonalPhotosRequest(state) {
+            state.getPhotosLoading = true;
+        },
+        getPersonalPhotosSuccess(state, {payload: photos}) {
+            state.getPhotosLoading = false;
+            state.personalPhotos = photos;
+        },
+        getPersonalPhotosFailure(state, {payload: error}) {
+            state.getPhotosLoading = false;
+            state.getPhotosError = error;
+        },
+
     }
 });
 

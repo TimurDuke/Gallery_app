@@ -15,6 +15,10 @@ const {
     addPhotoRequest,
     addPhotoSuccess,
     addPhotoFailure,
+
+    deletePhotoRequest,
+    deletePhotoSuccess,
+    deletePhotoFailure
 } = photosSlice.actions;
 
 export const getPhotos = () => {
@@ -56,12 +60,9 @@ export const addPhoto = photoData => {
 
             const response = await axiosApi.post('/photos', photoData);
 
-            if (response.data) {
+            if (response.data && response.status === 200) {
                 dispatch(addPhotoSuccess());
                 dispatch(historyPush('/'));
-            }
-
-            if (response.status === 200) {
                 addSuccessNotification('Photo successfully created');
             }
         } catch (e) {
@@ -70,6 +71,24 @@ export const addPhoto = photoData => {
             } else {
                 dispatch(addPhotoFailure({global: "No internet"}));
             }
+        }
+    };
+};
+
+export const deletePhoto = photoId => {
+    return async dispatch => {
+        try {
+            dispatch(deletePhotoRequest());
+
+            const response = await axiosApi.delete('/photos/' + photoId);
+
+            if (response.data && response.status === 200) {
+                dispatch(deletePhotoSuccess());
+                dispatch(historyPush('/'));
+                addSuccessNotification(response.data);
+            }
+        } catch (e) {
+            dispatch(deletePhotoFailure(e));
         }
     };
 };

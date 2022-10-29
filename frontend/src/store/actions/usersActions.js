@@ -25,13 +25,10 @@ export const registerUser = userData => {
 
             const response = await axiosApi.post('/users', userData);
 
-            if (response.data) {
+            if (response.data && response.status === 200) {
                 dispatch(registerUserSuccess(response.data));
-            }
-
-            if (response.status === 200) {
-                addSuccessNotification('You have successfully registred!');
                 dispatch(historyPush('/'));
+                addSuccessNotification('You have successfully registred!');
             }
         } catch (e) {
             addFailureNotification('Register failed!');
@@ -51,13 +48,10 @@ export const loginUser = userData => {
 
             const response = await axiosApi.post('/users/sessions', userData);
 
-            if (response.data) {
+            if (response.data && response.status === 200) {
                 dispatch(loginUserSuccess(response.data));
-            }
-
-            if (response.status === 200) {
-                addSuccessNotification('You have successfully login!');
                 dispatch(historyPush('/'));
+                addSuccessNotification('You have successfully login!');
             }
         } catch (e) {
             addFailureNotification('Login failed!');
@@ -77,12 +71,9 @@ export const facebookLogin = fbUserData => {
 
             const response = await axiosApi.post('/users/facebookLogin', fbUserData);
 
-            if (response.data) {
+            if (response.data && response.status === 200) {
                 dispatch(loginUserSuccess(response.data));
                 dispatch(historyPush('/'));
-            }
-
-            if (response.status === 200) {
                 addSuccessNotification('You have successfully login!');
             }
         } catch (e) {

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getPersonalPhotos} from "../../store/actions/photosActions";
+import {deletePhoto, getPersonalPhotos} from "../../store/actions/photosActions";
 import {Box, Button, Typography} from "@mui/material";
 import PersonalPhoto from "../../components/PersonalPhoto/PersonalPhoto";
 import {Link} from "react-router-dom";
@@ -16,7 +16,7 @@ const PersonalPhotos = ({match}) => {
     }, [dispatch, match.params.id]);
 
     const deletePhotoHandler = photoId => {
-        console.log(photoId);
+        dispatch(deletePhoto(photoId));
     };
 
     return (

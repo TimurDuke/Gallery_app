@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const config = require('./config');
 const {nanoid} = require("nanoid");
+const config = require('./config');
 
 const User = require("./models/User");
 const Photo = require("./models/Photo");
@@ -20,21 +20,18 @@ const run = async () => {
         token: nanoid(),
         role: 'admin',
         displayName: 'Admin',
-        avatarImage: 'fixtures/avatar.png',
     }, {
         email: 'user@gmail.com',
         password: 'user',
         token: nanoid(),
         role: 'user',
         displayName: 'User',
-        avatarImage: 'fixtures/avatar.png'
     }, {
         email: 'jhon@gmail.com',
         password: 'jhon',
         token: nanoid(),
         role: 'user',
         displayName: 'Jhon',
-        avatarImage: 'fixtures/avatar.png'
     });
 
     await Photo.create({

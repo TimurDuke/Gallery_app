@@ -47,10 +47,6 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    avatarImage: {
-        type: String,
-        required: true,
-    },
     facebookId: {
         type: String,
     },

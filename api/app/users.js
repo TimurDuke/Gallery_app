@@ -1,31 +1,16 @@
 const express = require('express');
 const {nanoid} = require('nanoid');
-const path = require("path");
 const axios = require("axios");
-const multer = require("multer");
 const config = require("../config");
 const User = require('../models/User');
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, config.uploadPath);
-    },
-    filename: (req, file, cb) => {
-        cb(null, nanoid() + path.extname(file.originalname));
-    },
-});
-
-const upload = multer({storage});
-
-router.post('/', upload.single('avatarImage'), async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { password, email, displayName } = req.body;
 
-        const avatarImage = req.file ? 'uploads/' + req.file.filename : null;
-
-        const userData = {password, avatarImage, email, displayName};
+        const userData = {password, email, displayName};
 
         const user = new User(userData);
 
@@ -84,8 +69,7 @@ router.post('/facebookLogin', async (req, res) => {
                 password: nanoid(),
                 facebookId: req.body.id,
                 displayName: req.body.name,
-                avatarImage: req.body.picture.data.url,
-            }
+            };
 
             user = new User(userData);
         }
@@ -101,7 +85,7 @@ router.post('/facebookLogin', async (req, res) => {
 
 router.delete('/sessions', async (req, res) => {
     const token = req.get('Authorization');
-    const success = {message: 'Success'};
+    const success = { message: 'Success' };
 
     if (!token) return res.send(success);
 

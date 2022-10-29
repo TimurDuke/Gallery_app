@@ -21,22 +21,23 @@ const PersonalPhotos = ({match}) => {
 
     return (
         <>
-            {!!personalPhotos.length
-                ? <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', marginBottom: '20px'}}>
-                    <Typography variant='h5'>
+            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', marginBottom: '20px'}}>
+                {!!personalPhotos.length
+                    ? <Typography variant='h5'>
                         {personalPhotos[0].author.displayName}'s gallery
                     </Typography>
-                    {user?._id === match.params.id
-                        ? <Button
-                            variant='outliend'
-                            color='primary'
-                            component={Link}
-                            to='/addPhoto'
-                        >
-                            Add new photo
-                        </Button>
-                        : null}
-                </Box> : null}
+                    : null}
+                {user?._id === match.params.id
+                    ? <Button
+                        variant='contained'
+                        color='primary'
+                        component={Link}
+                        to='/addPhoto'
+                    >
+                        Add new photo
+                    </Button>
+                    : null}
+            </Box>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 {!!personalPhotos.length ? personalPhotos.map(photo => (
                     <PersonalPhoto
@@ -45,6 +46,7 @@ const PersonalPhotos = ({match}) => {
                         title={photo.title}
                         author={photo.author.displayName}
                         authorId={photo.author['_id']}
+                        published={photo.published}
                         user={user}
                         deleteHandler={() => deletePhotoHandler(photo['_id'])}
                     />

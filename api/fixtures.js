@@ -38,16 +38,19 @@ const run = async () => {
         author: admin['_id'],
         title: "Admin photo",
         image: "fixtures/adminPhoto.jpg",
+        role: 'admin',
         published: true,
     }, {
         author: user['_id'],
         title: "User photo",
         image: "fixtures/userPhoto.jpg",
+        role: 'user',
         published: true,
     }, {
         author: jhon['_id'],
         title: "Jhon photo",
         image: "fixtures/jhonPhoto.jpg",
+        role: 'user',
         published: true,
     });
 

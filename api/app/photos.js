@@ -5,6 +5,7 @@ const {nanoid} = require("nanoid");
 const config = require("../config");
 const Photo = require("../models/Photo");
 const auth = require("../middleware/auth");
+const personalPhotosAuth = require("../middleware/personalPhotosAuth");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -17,19 +18,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.get("/", async (req, res) => {
+router.get("/", personalPhotosAuth, async (req, res) => {
     try {
-        let query;
+        let query = {published: {$eq: true}};
 
         if (req.query.author) {
-            query = {author: req.query.author};
+            query.author= req.query.author;
+
+            if (req.user['_id'].toString() === req.query.author || req.user.role === 'admin') {
+                delete query.published;
+            }
         }
 
         const photos = await Photo.find(query).populate('author', 'displayName');
 
         res.send(photos);
     } catch (e) {
-        res.sendStatus(500);
+        res.status(500).send(e);
     }
 });
 
@@ -40,10 +45,17 @@ router.post("/", auth, upload.single('image'), async (req, res) => {
 
         const image = req.file ? 'uploads/' + req.file.filename : null;
 
+        let published = false;
+
+        if (req.user.role === 'admin') {
+            published = true;
+        }
+
         const photoData = {
             author: userId,
             title,
             image,
+            published,
         };
 
         const photo = new Photo(photoData);
@@ -66,7 +78,7 @@ router.delete("/:id", auth, async (req, res) => {
             return res.status(404).send({message: "Photo with this id not found!"});
         }
 
-        if (userId.toString() === photo['author'].toString()) {
+        if (userId.toString() === photo['author'].toString() || req.user.role === 'admin') {
             await Photo.findByIdAndDelete(photo['_id']);
             return res.send({message: "Photo successfully deleted!"});
         } else {

@@ -85,7 +85,7 @@ export const deletePhoto = photoId => {
             if (response.data && response.status === 200) {
                 dispatch(deletePhotoSuccess());
                 dispatch(historyPush('/'));
-                addSuccessNotification(response.data);
+                addSuccessNotification(response.data.message);
             }
         } catch (e) {
             dispatch(deletePhotoFailure(e));

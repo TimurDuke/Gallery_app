@@ -7,6 +7,7 @@ import Photos from "./containers/Photos/Photos";
 import Register from "./containers/Register/Register";
 import Login from "./containers/Login/Login";
 import PersonalPhotos from "./containers/PersonalPhotos/PersonalPhotos";
+import PhotoForm from "./containers/PhotoForm/PhotoForm";
 
 const App = () => {
     const user = useSelector(state => state.users.user);
@@ -31,6 +32,13 @@ const App = () => {
                 />
 
                 <Route path='/users/:id' component={PersonalPhotos}/>
+
+                <ProtectedRoute
+                    isAllowed={user}
+                    redirectTo='/'
+                    path='/addPhoto'
+                    component={PhotoForm}
+                />
 
                 <Route render={() => <h1 style={{textAlign: 'center'}}>Not found!</h1>}/>
             </Switch>

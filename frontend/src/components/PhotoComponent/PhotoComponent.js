@@ -6,7 +6,7 @@ import {apiUrl} from "../../config";
 
 const PhotoComponent = ({authorId, image, title, author, modalHandler}) => {
     return (
-        <Card sx={{width: '31%', marginRight: '20px'}}>
+        <Card sx={{width: '31%', margin: '0 20px 20px 0'}}>
             <CardMedia
                 image={apiUrl + '/' + image}
                 onClick={modalHandler}

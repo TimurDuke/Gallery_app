@@ -43,14 +43,13 @@ router.post("/", auth, upload.single('image'), async (req, res) => {
         const photoData = {
             author: userId,
             title,
-            image: image || null
-            /* || null для вывода ошибки в инпуте. */
+            image,
         };
 
         const photo = new Photo(photoData);
 
-        res.send(photo);
         await photo.save();
+        res.send(photo);
     } catch (e) {
         res.status(400).send(e);
     }

@@ -16,7 +16,7 @@ const PersonalPhotos = ({match}) => {
     }, [dispatch, match.params.id]);
 
     const deletePhotoHandler = photoId => {
-
+        console.log(photoId);
     };
 
     return (

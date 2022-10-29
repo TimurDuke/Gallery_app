@@ -2,10 +2,9 @@ import {useState} from "react";
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import {CardMedia, Grid, MenuItem} from "@mui/material";
+import {Grid, MenuItem} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {logoutUser} from "../../../../store/actions/usersActions";
-import {apiUrl} from "../../../../config";
 
 const UserMenu = ({user}) => {
     const dispatch = useDispatch();
@@ -40,15 +39,6 @@ const UserMenu = ({user}) => {
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
                     size='large'
-                    endIcon={
-                        <CardMedia
-                            component="img"
-                            height="30"
-                            image={user?.facebookId ? user.avatarImage : apiUrl + '/' + user.avatarImage}
-                            sx={{borderRadius: '50%', width: '30px'}}
-                            alt="Avatar image"
-                        />
-                    }
                     sx={{textTransform: 'capitalize'}}
                 >
                     Hello, {user.displayName}!

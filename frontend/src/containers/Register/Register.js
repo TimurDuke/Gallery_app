@@ -6,7 +6,6 @@ import {LockOutlined} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 
 import FormElement from "../../components/UI/Form/FormElement/FormElement";
-import FileInput from "../../components/UI/Form/FileInput/FileInput";
 import ButtonWithProgress from "../../components/UI/ButtonWithProgress/ButtonWithProgress";
 import {clearRegisterErrors, registerUser} from "../../store/actions/usersActions";
 
@@ -40,7 +39,6 @@ const Register = () => {
         password: '',
         email: '',
         displayName: '',
-        avatarImage: '',
     });
 
     useEffect(() => {
@@ -55,23 +53,10 @@ const Register = () => {
         setUser(prev => ({...prev, [name]: value}));
     };
 
-    const fileChangeHandler = e => {
-        const name = e.target.name;
-        const file = e.target.files[0];
-
-        setUser(prevState => ({...prevState, [name]: file}));
-    };
-
     const submitFormHandler = e => {
         e.preventDefault();
 
-        const formData = new FormData();
-
-        Object.keys(user).forEach(key => {
-            formData.append(key, user[key]);
-        });
-
-        dispatch(registerUser(formData));
+        dispatch(registerUser({...user}));
     };
 
     const getFieldError = fieldName => {
@@ -115,16 +100,6 @@ const Register = () => {
                         value={user.displayName}
                         error={getFieldError('displayName')}
                     />
-
-                    <Grid item xs={12}>
-                        <FileInput
-                            label="Avatar Image"
-                            name="avatarImage"
-                            onChange={fileChangeHandler}
-                            required={true}
-                            error={getFieldError('avatarImage')}
-                        />
-                    </Grid>
 
                     <FormElement
                         name='password'

@@ -27,7 +27,7 @@ const Layout = ({children}) => {
                             sx={{textDecoration: 'none', color: '#fff'}}
                             variant='h4'
                         >
-                            Application
+                            Gallery
                         </Typography>
                     </Grid>
                     <Grid item>

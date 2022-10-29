@@ -6,6 +6,7 @@ const initialState = {
     photos: [],
     personalPhotos: [],
     moderationPhotos: [],
+    photoByLink: [],
     getPhotosLoading: false,
     getPhotosError: null,
     personalPhotosLoading: false,
@@ -18,6 +19,10 @@ const initialState = {
     moderationPhotosError: null,
     publishPhotoLoading: false,
     publishPhotoError: null,
+    shareLinkLoading: false,
+    shareLinkError: null,
+    photoLinkLoading: false,
+    photoLinkError: null,
 };
 
 const usersSlice = createSlice({
@@ -86,6 +91,27 @@ const usersSlice = createSlice({
         publishPhotoFailure(state, {payload: error}) {
             state.publishPhotoLoading = false;
             state.publishPhotoError = error;
+        },
+        shareLinkRequest(state) {
+            state.shareLinkLoading = true;
+        },
+        shareLinkSucess(state) {
+            state.shareLinkLoading = false;
+        },
+        shareLinkFailure(state, {payload: error}) {
+            state.shareLinkLoading = false;
+            state.shareLinkError = error;
+        },
+        getPhotoByLinkRequest(state) {
+            state.photoLinkLoading = true;
+        },
+        getPhotoByLinkSuccess(state, {payload: photo}) {
+            state.photoLinkLoading = false;
+            state.photoByLink = photo;
+        },
+        getPhotoByLinkFailure(state, {payload: error}) {
+            state.photoLinkLoading = false;
+            state.photoLinkError = error;
         },
     }
 });

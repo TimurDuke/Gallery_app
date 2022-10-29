@@ -9,6 +9,7 @@ import Login from "./containers/Login/Login";
 import PersonalPhotos from "./containers/PersonalPhotos/PersonalPhotos";
 import PhotoForm from "./containers/PhotoForm/PhotoForm";
 import ModerationPage from "./containers/ModerationPage/ModerationPage";
+import ImageLinkPage from "./containers/ImageLinkPage/ImageLinkPage";
 
 const App = () => {
     const user = useSelector(state => state.users.user);
@@ -47,6 +48,8 @@ const App = () => {
                     path='/moderation'
                     component={ModerationPage}
                 />
+
+                <Route path='/image' component={ImageLinkPage}/>
 
                 <Route render={() => <h1 style={{textAlign: 'center'}}>Not found!</h1>}/>
             </Switch>

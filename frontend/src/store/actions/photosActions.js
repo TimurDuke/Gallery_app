@@ -27,6 +27,14 @@ const {
     publishPhotoRequest,
     publishPhotoSuccess,
     publishPhotoFailure,
+
+    shareLinkRequest,
+    shareLinkSucess,
+    shareLinkFailure,
+
+    getPhotoByLinkRequest,
+    getPhotoByLinkSuccess,
+    getPhotoByLinkFailure,
 } = photosSlice.actions;
 
 export const getPhotos = () => {
@@ -131,6 +139,39 @@ export const publishPhoto = photoId => {
             }
         } catch (e) {
             dispatch(publishPhotoFailure(e));
+        }
+    };
+};
+
+export const shareLink = photoId => {
+    return async dispatch => {
+        try {
+            dispatch(shareLinkRequest());
+
+            const { data } = await axiosApi.post('/image/' + photoId);
+
+            if (data) {
+                dispatch(shareLinkSucess());
+            }
+        } catch (e) {
+            dispatch(shareLinkFailure(e));
+        }
+    };
+};
+
+export const getPhotoByLink = token => {
+    return async dispatch => {
+        try {
+            dispatch(getPhotoByLinkRequest());
+
+            const { data } = await axiosApi('/image?token=' + token);
+
+            if (data) {
+                dispatch(getPhotoByLinkSuccess(data));
+            }
+
+        } catch (e) {
+            dispatch(getPhotoByLinkFailure(e));
         }
     };
 };

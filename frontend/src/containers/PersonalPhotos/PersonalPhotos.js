@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deletePhoto, getPersonalPhotos} from "../../store/actions/photosActions";
+import {deletePhoto, getPersonalPhotos, shareLink} from "../../store/actions/photosActions";
 import {Box, Button, Typography} from "@mui/material";
 import PersonalPhoto from "../../components/PersonalPhoto/PersonalPhoto";
 import {Link} from "react-router-dom";
 import Preloader from "../../components/UI/Preloader/Preloader";
+import ModalComponent from "../../components/UI/ModalComponent/ModalComponent";
 
 const PersonalPhotos = ({match}) => {
     const dispatch = useDispatch();
@@ -17,12 +18,44 @@ const PersonalPhotos = ({match}) => {
         dispatch(getPersonalPhotos(match.params.id));
     }, [dispatch, match.params.id]);
 
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const [modalData, setModalData] = useState({
+        image: '',
+        title: '',
+        author: ''
+    });
+
+    const handleModalOpen = (image, title, author) => {
+        setModalData({image, title, author});
+
+        setModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setModalOpen(false);
+
+        setModalData({image: '', title: '', author: ''});
+    };
+
     const deletePhotoHandler = photoId => {
         dispatch(deletePhoto(photoId));
     };
 
+    const shareLinkHandler = async photoId => {
+        await dispatch(shareLink(photoId));
+        await dispatch(getPersonalPhotos(match.params.id));
+    };
+
     return (
         <>
+            <ModalComponent
+                modalOpen={modalOpen}
+                handleClose={handleModalClose}
+                image={modalData.image}
+                titlePhoto={modalData.title}
+                authorPhoto={modalData.author}
+            />
             <Preloader
                 showPreloader={loading}
             />
@@ -52,7 +85,6 @@ const PersonalPhotos = ({match}) => {
             <Box sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
                     flexWrap: 'wrap'
                 }}
             >
@@ -64,8 +96,11 @@ const PersonalPhotos = ({match}) => {
                         author={photo.author.displayName}
                         authorId={photo.author['_id']}
                         published={photo.published}
+                        token={photo.token}
+                        modalOpen={() => handleModalOpen(photo.image, photo.title, photo.author.displayName)}
                         user={user}
                         deleteHandler={() => deletePhotoHandler(photo['_id'])}
+                        shareHandler={() => shareLinkHandler(photo['_id'])}
                     />
                 )) : <h2 style={{textAlign: 'center'}}>You don't have any personal photos yet.</h2>}
             </Box>

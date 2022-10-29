@@ -7,6 +7,7 @@ const exitHook = require('async-exit-hook');
 const config = require('./config');
 
 const users = require('./app/users');
+const photos = require('./app/photos');
 
 const app = express();
 const PORT = 8000;
@@ -19,6 +20,7 @@ const run = async () => {
     await mongoose.connect(config.mongo.db, config.mongo.options);
 
     app.use('/users', users);
+    app.use('/photos', photos);
 
     app.listen(PORT, () => {
         console.log(`Server started on ${PORT} port!`);

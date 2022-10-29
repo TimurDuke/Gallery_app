@@ -14,6 +14,8 @@ const initialState = {
     deletePhotoFailure: null,
     moderationPhotosLoading: false,
     moderationPhotosError: null,
+    publishPhotoLoading: false,
+    publishPhotoError: null,
 };
 
 const usersSlice = createSlice({
@@ -72,6 +74,16 @@ const usersSlice = createSlice({
         deletePhotoFailure(state, {payload: error}) {
             state.deletePhotoLoading = false;
             state.deletePhotoFailure = error;
+        },
+        publishPhotoRequest(state) {
+            state.publishPhotoLoading = true;
+        },
+        publishPhotoSuccess(state) {
+            state.publishPhotoLoading = false;
+        },
+        publishPhotoFailure(state, {payload: error}) {
+            state.publishPhotoLoading = false;
+            state.publishPhotoError = error;
         },
     }
 });

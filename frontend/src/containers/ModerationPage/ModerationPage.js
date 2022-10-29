@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deletePhoto, getModerationPhotos} from "../../store/actions/photosActions";
+import {deletePhoto, getModerationPhotos, publishPhoto} from "../../store/actions/photosActions";
 import {Box} from "@mui/material";
 import ModerationPhotoComponent from "../../components/ModerationPhotoComponent/ModerationPhotoComponent";
 
@@ -19,7 +19,7 @@ const ModerationPage = () => {
     };
 
     const publishPhotoHandler = photoId => {
-        console.log(photoId);
+        dispatch(publishPhoto(photoId));
     };
 
     return (

@@ -23,6 +23,10 @@ const {
     deletePhotoRequest,
     deletePhotoSuccess,
     deletePhotoFailure,
+
+    publishPhotoRequest,
+    publishPhotoSuccess,
+    publishPhotoFailure,
 } = photosSlice.actions;
 
 export const getPhotos = () => {
@@ -109,6 +113,24 @@ export const deletePhoto = photoId => {
             }
         } catch (e) {
             dispatch(deletePhotoFailure(e));
+        }
+    };
+};
+
+export const publishPhoto = photoId => {
+    return async dispatch => {
+        try {
+            dispatch(publishPhotoRequest());
+
+            const response = await axiosApi.put('/admin/publishPhoto/' + photoId);
+
+            if (response.data && response.status === 200) {
+                dispatch(publishPhotoSuccess());
+                dispatch(historyPush('/'));
+                addSuccessNotification('The photo has been successfully published.');
+            }
+        } catch (e) {
+            dispatch(publishPhotoFailure(e));
         }
     };
 };
